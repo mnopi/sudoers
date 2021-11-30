@@ -1,0 +1,35 @@
+#!/bin/sh
+
+
+####################################### ✓ real: exported function
+# Absolute logical (symlink) or resolved (physical) path (if does not exists, accepts one level up to cd).
+# Arguments:
+#   -l, --logical       Do not resolve symlinks (pwd)
+#   path                  Path (default: cwd).
+# Output:
+#   Path or help message to stdout.
+# Returns:
+#   1 if parent directory does not exists.
+#######################################
+real() {
+  logical=false
+
+  for arg do
+    case "${arg}" in
+      -l|--logical) logical=true ;;
+      *) relative="${arg}"
+    esac
+  done
+
+  relative="${relative-.}"
+  [ -d "${relative}" ] || basename="/$(basename "${relative}")"  # does not exists or is file
+  cd "$(dirname "${relative}")" || exit 1
+
+  if $logical; then
+    echo "$(pwd)${basename}"
+  else
+    echo "$(pwd -P)${basename}"
+  fi
+  unset arg basename logical relative
+}
+

@@ -1,0 +1,18 @@
+#!/bin/sh
+
+#
+# Patches sudo with -i option and manages sudoers
+
+version="0.0.1"
+
+main() {
+  for arg do
+    case "${arg}" in
+      -h|--help) man -P cat "${0##*/}" 2>/dev/null || exit 1 ;;
+      --version) echo "${version}"; exit ;;
+      *) dir="${arg}"; break ;;
+    esac
+  done
+}
+
+main "${@}"

@@ -1,0 +1,33 @@
+#!/bin/sh
+
+#
+# Boolean functions.
+
+_sourced() { case "${0##*/}" in bash|dash|ksh|sh|zsh) true;; *) die "${arg}": and "${0##*/}" not sourced ;; esac; }
+
+admin() { /usr/bin/sudo true; }
+adminpass() { [ "${ADMINPASS-}" ] || { die Provide a password in: ADMINPASS variable; exit 1; }; /usr/bin/sudo true; }
+container() { [ -f '/proc/1/environ' ] || [ -f '/.dockerenv' ]; }
+dash() { _sourced && [ "${0##*/}" = 'dash' ]; }
+linux() { [ "$(uname -s)" = "Linux" ]; }
+macos() { [ "$(uname -s)" = "Darwin" ]; }
+ps1() { _sourced && [ "${PS1-}" ]; }
+root() { [ "$(id -u)" -eq 0 ]; }
+sh() { _sourced && [ "${0##*/}" = 'sh' ]; }
+sudo() { [ "${SUDO_UID-}" ]; }
+ssh() { [ "${SSH_CLIENT-}" ] || [ "${SSH_CONNECTION-}" ] || [ "${SSH_TTY-}" ]; }
+user() { ! is root && ! is sudo; }
+
+main() {
+  for arg do
+    case "${arg}" in
+      -h|--help) man -P cat "${0##*/}" 2>/dev/null || exit 1 ;;
+      --funcs) awk -F '\(' '/^[a-z].*\() {/ && !/^main/ { print $1 }' "${0}" ;;
+      --version) sudoers --version ;;
+      *) "${arg}" ;;
+    esac
+    exit
+  done
+}
+
+main "${@}"
