@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="bashsupport-pro.project">
+    <scriptLibraries>
+      <library name="Library 1">
+        <sources>
+          <source path="bin/bats.lib" />
+          <source path="bin/color.lib" />
+          <source path="bin/die.lib" />
+          <source path="bin/strict.lib" />
+        </sources>
+      </library>
+    </scriptLibraries>
+    <globalVariables>
+      <var name="_bats_lib_cache" />
+      <var name="_bats_lib_upgrade" />
+      <var name="_color_names" />
+      <var name="_color_sep" />
+      <var name="_colors" />
+      <var name="CyanBold" />
+      <var name="CyanDim" />
+      <var name="Green" />
+      <var name="GreenBold" />
+      <var name="GreyBold" />
+      <var name="GreyDim" />
+      <var name="GreyInvert" />
+      <var name="Red" />
+      <var name="RedBg" />
+      <var name="RedBold" />
+      <var name="RedDim" />
+      <var name="Reset" />
+      <var name="White" />
+      <var name="Yellow" />
+      <var name="YellowBold" />
+      <var name="YellowDim" />
+      <var name="YellowInvert" />
+      <var name="_color_cache_dir" />
+      <var name="_color_cache_file" />
+      <var name="_bats_bash" />
+      <var name="_bats_sep" />
+      <var name="_bats_cache" />
+      <var name="_bats_repo" />
+      <var name="_bats_dest" />
+      <var name="_os_cache_file" />
+      <var name="_oss" />
+      <var name="init_file" />
+      <var name="rcfile" />
+    </globalVariables>
+  </component>
+</project>

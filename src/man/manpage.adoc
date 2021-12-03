@@ -6,7 +6,7 @@
 
 == Name
 
-{name} - converts, tests and commit changes for AsciiDoc man pages in a repository
+*{name}* - {desc}
 
 == Synopsis
 
@@ -23,7 +23,7 @@ where the source `*.adoc` has been found, i.e.: `./src/man/name.adoc` will be ge
 == Options
 
 *DIRECTORY*::
-  _Directory_ in a git repository (default: current working directory).
+  _DIRECTORY_ in a git repository (default: current working directory).
 
 *--desc*::
   Show one line description and exit.

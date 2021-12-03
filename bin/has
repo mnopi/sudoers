@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# Check if an executable exists (which) excluding rc SBIN
+#
+. strict.lib 2>/dev/null || { set -eu; PATH="$("$(dirname "${0}")/colon")" && export PATH && . strict.lib; }
+
 #######################################
 # Check if an executable exists (which) excluding rc SBIN
 # Arguments:
@@ -16,9 +20,11 @@ c="which"
 v=false
 for arg; do
   case "${arg}" in
+    -h|--help) usage "${0}"; exit ;;
+    --desc) desc "${0}"; exit ;;
+    --version) sudoers --version; exit ;;
     -c) c="command -v" ;;
     -v) v=true ;;
-    --usage) usage "${@}" || exit ;;
     *) exe="${arg}";;
   esac
 done

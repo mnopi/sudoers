@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-set -eou pipefail
-shopt -s inherit_errexit
-
+#
+# Converts, tests and commit changes for AsciiDoc man pages in a repository.
+. strict.lib 2>/dev/null || { set -eu; PATH="$("$(dirname "${0}")/colon")" && export PATH && . strict.lib; }
 
 adoc() {
   asciidoctor -b manpage \
@@ -47,7 +47,9 @@ main() {
   local arg section src version
   for arg do
     case "${arg}" in
-      -h|--help) man -p cat "${0##*/}" 2>/dev/null || exit 1 ;;
+      -h|--help) usage "${0}"; exit ;;
+      --desc) desc "${0}"; exit ;;
+      --version) sudoers --version; exit ;;
       *) break ;;
     esac
   done
@@ -88,4 +90,4 @@ main() {
   done < <(find . ./src/man -type f -name "*.adoc" -or -name "README.adoc" -mindepth 1 -maxdepth 1)
 }
 
-main "${@}"
+main "${@:-}"

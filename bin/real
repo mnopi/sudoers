@@ -1,7 +1,10 @@
 #!/bin/sh
 
+# Absolute logical (symlink) or resolved (physical) path (if does not exists, accepts one level up to cd).
+#
+. strict.lib 2>/dev/null || { set -eu; PATH="$("$(dirname "${0}")/colon")" && export PATH && . strict.lib; }
 
-####################################### ✓ real: exported function
+#######################################
 # Absolute logical (symlink) or resolved (physical) path (if does not exists, accepts one level up to cd).
 # Arguments:
 #   -l, --logical       Do not resolve symlinks (pwd)
@@ -11,11 +14,14 @@
 # Returns:
 #   1 if parent directory does not exists.
 #######################################
-real() {
+main() {
   logical=false
 
   for arg do
     case "${arg}" in
+      -h|--help) usage "${0}"; exit ;;
+      --desc) desc "${0}"; exit ;;
+      --version) sudoers --version; exit ;;
       -l|--logical) logical=true ;;
       *) relative="${arg}"
     esac
@@ -33,3 +39,4 @@ real() {
   unset arg basename logical relative
 }
 
+main "${@:-}"

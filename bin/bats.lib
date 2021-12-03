@@ -1,47 +1,76 @@
-# shellcheck shell=bash
+# shellcheck shell=sh disable=SC3028,SC3054
 
-#
 # Installs, sources bats libraries and add repository: bin, test, scripts directories to PATH, excluding backup and tmp.
+#
 
-function die-bats-libs() {
-  local rc="${1}"
-  unset cache func dest repo script
-  unset -f die-bats-libs
-  exit "${rc}"
+_bats_lib_install() {
+  _bats_cache="${HOME}/.cache/bats.libs"
+
+  mkdir -p "${_bats_cache}"
+  _bats_sep=''
+  for _bats_repo in ${_BATS_LIBS}; do
+    _bats_dest="${_bats_cache}/${_bats_repo}"
+    _BATS_LIBS_DIRS="${_BATS_LIBS_DIRS}${_bats_sep}${_bats_dest}"
+    if [ -d "${_bats_dest}" ] && $_bats_lib_upgrade; then
+      git -C "${_bats_dest}" pull --quiet --force 1>/dev/null || die Pull: "${_bats_dest}"
+      verbose Bats Libs "${_bats_repo}": Updated
+    elif [ ! -d "${_bats_dest}" ]; then
+      git clone --quiet "https://github.com/bats-core/${_bats_repo}.git" "${_bats_dest}" 1>/dev/null || \
+        die Clone: "${_bats_dest}"
+      verbose Bats Libs "${_bats_repo}": Cached
+    fi
+    [ ! "${BASH_VERSION-}" ] || . "${_bats_dest}/load.bash"
+    _bats_sep=' '
+  done
+  [ ! "${BASH_VERSION-}" ] || for func in ${_BATS_LIBS_FUNCS}; do
+#    declare -pF "${func}" >/dev/null || die Function Not Sourced: "${func}"
+    declare -pF "${func}" >/dev/null
+  done
+  assert_equal
+  mierda
 }
 
-script="$(basename "${BASH_SOURCE[0]}")"
+_bats_lib_upgrade=true
+_BATS_LIBS='bats-assert bats-file bats-support'
+_BATS_LIBS_DIRS=''
+_BATS_LIBS_FUNCS='assert_equal assert_file_exist batslib_err'
 
-if (return 0 2>/dev/null); then
-  while ((${#})); do
-    case "${1}" in
-      -h|--help)
-        $( which man ) -P cat "${script}" 2>/dev/null
-        die-bats-libs
-        ;;
-      *)
-        echo "${script}: ${1}: invalid option"
-        die-bats-libs 1
-        ;;
-    esac
-    shift
-  done
-
-  cache="${HOME}/.cache"
-  mkdir -p "${cache}"
-  for repo in bats-assert bats-file bats-support; do
-    dest="${cache}/${repo}"
-    if test -d "${dest}"; then
-      git -C "${dest}" pull --quiet --force 1>/dev/null || die-bats-libs 1
-    else
-      git clone --quiet "https://github.com/bats-core/${repo}.git" "${dest}" 1>/dev/null || die-bats-libs 1
-    fi
-    source "${dest}/load.bash"
-  done
-  for func in assert_equal assert_file_exist batslib_err; do
-    declare -pF "${func}" 1>/dev/null || die-bats-libs 1
-  done
-  return
+if [ "${0##*/}" = 'sh' ] || [ "${BATS_TEST_DIRNAME-}" ] || (return 0 2>/dev/null); then
+  git top > /tmp/top
+  ROOT="$(cd "$(git top)" || exit 1; pwd)"; export ROOT
+  _bats_lib_upgrade=false
 else
-  echo "${script}: must be sourced"
+  # not sourced
+  ROOT="$(cd "$(dirname "${0}")/.." || exit 1; pwd)"
 fi
+
+_colon_cmd="${ROOT}/bin/colon"
+${_colon_cmd}
+
+PATH="$(${_colon_cmd})" && export PATH
+echo $PATH > /tmp/path
+. die.lib
+
+if $_bats_lib_upgrade; then
+  # not sourced
+  for arg do
+    case "${arg}" in
+      -h|--help) usage "${0}" ;;
+      --desc) desc "${0}" ;;
+      --version) sudoers --version ;;
+    esac
+    exit
+  done
+  _bats_lib_upgrade=true
+else
+  for _bats_lib_i in src/bin src/scripts test tests test/fixtures tests/fixtures tools lib scripts bin sbin; do
+    [ ! -d  "${ROOT}/${_bats_lib_i}" ] || PATH="$("${_colon_cmd}" "${ROOT}/${_bats_lib_i}" "${PATH}")"
+  done
+  export PATH
+fi
+
+_bats_lib_install
+
+unset _bats_bash _bats_cache _bats_dest _bats_lib_add_to_path _bats_lib_i _bats_lib_run _bats_lib_source_top
+unset _bats_lib_upgrade _bats_repo _bats_sep _colon_cmd
+unset -f _bats_lib_install

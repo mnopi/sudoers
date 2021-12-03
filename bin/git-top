@@ -1,8 +1,8 @@
 #!/bin/sh
 
+# Git top path
 #
-# Git top path.
-
+. strict.lib 2>/dev/null || { set -eu; PATH="$("$(dirname "${0}")/colon")" && export PATH && . strict.lib; }
 
 #
 #  # Rev-parse: top level path.
@@ -22,14 +22,11 @@ top() {
   echo "${path}"
 }
 
-main() {
-  for arg do
-    case "${arg}" in
-      -h|--help) man -P cat "${0##*/}" 2>/dev/null || exit 1 ;;
-      --sbin) exit ;;
-      --version) sudoers --version ;;
-      *) path="${arg}" ;;
-    esac
-    exit
-  done
-}
+for arg do
+  case "${arg}" in
+    -h|--help) usage "${0}" ;;
+    --desc) desc "${0}" ;;
+    --version) sudoers --version ;;
+  esac
+  exit
+done
