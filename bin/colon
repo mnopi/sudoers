@@ -33,6 +33,10 @@ bins() {
   run
 }
 
+# TODO: estaba cn el profile y guarde una branch del rc.d para cambiar este al rc.d y me lie con los submodules del GitHub
+#   para asi quitar de aqui el de semver y los de bats.
+#   Asi que guardar el rc.d large en backups. y meter este en main de rc.d.
+#   poner lo de submodules en comando de git-modules y limpiar el archive.
 init() {
   _export="${EXPORT}"; EXPORT=''
 

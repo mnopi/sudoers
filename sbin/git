@@ -10,7 +10,7 @@ main () {
     cmd="$(cd "$(dirname "${i}")" || exit 1; pwd)/${name}"
     if [ "${cmd}" = "${path}" ] || head -1 "${cmd}" | grep -q '^#\!'; then continue; else break; fi
   done
-  [ ! "${cmd}" ] || { echo "${name}: ${cmd}: command not found"; exit 1; }
+  [ -x "${cmd}" ] || { echo "${name}: ${cmd}: command not found"; exit 1; }
 
   echo "exec ${cmd} ${*:-}" >/tmp/"${USER}-${name}"
 
