@@ -11,17 +11,57 @@ if [ "${0##*/}" = 'sh' ] || (return 0 2>/dev/null); then
   { [ ! "${Red-}" ] || [ ! -r "${_color_cache_file}" ]; } || { return 0 2>/dev/null || exit 0; }
 fi
 
-# Default unset, debug messages are not shown.
-# Needs to be activated with DEBUG=1 or --debug.
+# <html><h2>Show Debug Messages</h2>
+# <p><strong><code>$DEBUG</code></strong>.</p>
+# <p><strong><code>Default: unset</code></strong> (debug messages are not shown).</p>
+# <p>Activate with either of:</p>
+# <ul>
+# <li><code>DEBUG=1</code></li>
+# <li><code>--debug</code></li>
+# </ul>
+# </html>
 export DEBUG
-# Default unset, messages are shown based on their variable for DEBUG, VERBOSE and WARNING; ok and error printed.
-# Needs to be silent with --quiet (takes precedence over DEBUG, VERBOSE and WARNING).
+# <html><h2>Silent Output</h2>
+# <p><strong><code>$QUIET</code></strong>.</p>
+# <p><strong><code>Default: unset</code></strong>. The following messages are shown:.</p>
+# <ul>
+# <li><code>error</code></li>
+# <li><code>ok</code></li>
+# </ul>
+# <p><strong><code>Other messages are shown base on the variable value:</code></strong>, the following messages are shown: (ok and error messages shown).</p>
+# <ul>
+# <li><code>debug</code>: $DEBUG</li>
+# <li><code>verbose</code>: $VERBOSE</li>
+# <li><code>warning</code>: $WARNING</li>
+# </ul>
+# <p>Activate with either of:</p>
+# <ul>
+# <li><code>QUIET=1</code></li>
+# <li><code>--quiet</code></li>
+# </ul>
+# <p><strong><code>Note:</code></strong></p>
+# <p>Takes precedence over $DEBUG, $VERBOSE and $WARNING.</p>
+# </html>
 export QUIET
-# Default unset, verbose messages are not shown.
-# Needs to be activated with VERBOSE=1 or --verbose.
+# <html><h2>Show Verbose Messages</h2>
+# <p><strong><code>$VERBOSE</code></strong>.</p>
+# <p><strong><code>Default: unset</code></strong> (verbose messages are not shown).</p>
+# <p>Activate with either of:</p>
+# <ul>
+# <li><code>VERBOSE=1</code></li>
+# <li><code>--verbose</code></li>
+# </ul>
+# </html>
 export VERBOSE
-# Default unset, warning messages are not shown.
-# Needs to be activated with WARNING=1 or --warning.
+# <html><h2>Show Warning Messages</h2>
+# <p><strong><code>$WARNING</code></strong>.</p>
+# <p><strong><code>Default: unset</code></strong> (warning messages are not shown).</p>
+# <p>Activate with either of:</p>
+# <ul>
+# <li><code>WARNING=1</code></li>
+# <li><code>--warning</code></li>
+# </ul>
+# </html>
 export WARNING
 
 ####################################### _color_main
@@ -29,7 +69,8 @@ export WARNING
 # ######################################
 # shellcheck disable=SC3053,SC3057,SC3040
 _color_main() {
-  . strict.lib 2>/dev/null || { set -eu; PATH="$("$(dirname "${0}")/colon")" && export PATH && . strict.lib; }
+  set -eu
+  . "$(dirname "${0}")/rebash.lib" && rebash "${0}"
   for arg do
     case "${arg}" in
       -h|--help) usage "${0}" ;;

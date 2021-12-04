@@ -37,14 +37,14 @@ _BATS_LIBS_FUNCS='assert_equal assert_file_exist batslib_err'
 
 if [ "${0##*/}" = 'sh' ] || [ "${BATS_TEST_DIRNAME-}" ] || (return 0 2>/dev/null); then
   git top > /tmp/top
-  ROOT="$(cd "$(git top)" || exit 1; pwd)"; export ROOT
+  LOCAL="$(cd "$(git top)" || exit 1; pwd)"; export LOCAL
   _bats_lib_upgrade=false
 else
   # not sourced
-  ROOT="$(cd "$(dirname "${0}")/.." || exit 1; pwd)"
+  LOCAL="$(cd "$(dirname "${0}")/.." || exit 1; pwd)"
 fi
 
-_colon_cmd="${ROOT}/bin/colon"
+_colon_cmd="${LOCAL}/bin/colon"
 ${_colon_cmd}
 
 PATH="$(${_colon_cmd})" && export PATH
@@ -64,7 +64,7 @@ if $_bats_lib_upgrade; then
   _bats_lib_upgrade=true
 else
   for _bats_lib_i in src/bin src/scripts test tests test/fixtures tests/fixtures tools lib scripts bin sbin; do
-    [ ! -d  "${ROOT}/${_bats_lib_i}" ] || PATH="$("${_colon_cmd}" "${ROOT}/${_bats_lib_i}" "${PATH}")"
+    [ ! -d  "${LOCAL}/${_bats_lib_i}" ] || PATH="$("${_colon_cmd}" "${LOCAL}/${_bats_lib_i}" "${PATH}")"
   done
   export PATH
 fi

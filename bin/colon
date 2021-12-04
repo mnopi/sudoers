@@ -34,6 +34,13 @@ bins() {
 }
 
 init() {
+  _export="${EXPORT}"; EXPORT=''
+
+  case "${_export}" in
+    PATH)
+    INFOPATH)
+    MANPATH)
+  esac
   if [ "${EXPORT}" = 'PATH' ]; then
     :
   elif [ "${EXPORT}" = 'INFOPATH' ]; then
@@ -61,7 +68,6 @@ output() {
     echo "${1}"
   fi
 }
-
 
 #######################################
 # Prepend (beginning, the default), append (end) or remove

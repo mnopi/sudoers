@@ -1,4 +1,4 @@
-# shellcheck shell=sh
+# shellcheck shell=bash
 
 # Show message (ok or error) with symbol (✓, x respectively) based on status code, unless QUIET is set and exit
 #
@@ -44,6 +44,6 @@ if [ "${0##*/}" = 'sh' ] || (return 0 2>/dev/null); then
   # shellcheck disable=SC3045
   [ ! "${BASH_VERSION-}" ] || export -f die
 else
-  . strict.lib 2>/dev/null || { SCRIPT_BIN="$(dirname "${0}")"; . "${SCRIPT_BIN}/strict.lib"; }
+  set -eu; PATH="$(dirname "${0}"):${PATH}"; export PATH
   . color.lib
 fi
