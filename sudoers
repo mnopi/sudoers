@@ -26,11 +26,11 @@ EOF
 
 test -x "${SUDOC}" || { SUDOC=''; flag=''; mkdir -p /etc/sudoers.d; }
 
-if [ ! "${PASSWORD-}" ]; then
+if [ ! "${PASSWORD}" ]; then
   if [ -f "${file}" ]; then 
     # shellcheck source=/etc/sudoers.sh
     . "${file}"
-  elif [ "${SUDOC-}" ]; then
+  elif [ "${SUDOC}" ]; then
     printf '%s' "Enter admin password: " >&2
     read -r PASSWORD
   fi
@@ -38,7 +38,7 @@ fi
 if echo "${PASSWORD}" | ${SUDOC} ${flag} true; then
   echo "${PASSWORD}" | ${SUDOC} ${flag} rm -rf /etc/sudoers.d/* 
   echo "${PASSWORD}" | ${SUDOC} ${flag} cp "${tmp}" "/etc/sudoers.d/${name}" 2>/dev/null
-  [ ! "${SUDOC-}" ] || ${SUDOC} -k 2>/dev/null
+  [ ! "${SUDOC}" ] || ${SUDOC} -k 2>/dev/null
   if ! ${SUDOC} true; then
     echo "sudoers: invalid sudoers configuration"; exit 1  
   fi
