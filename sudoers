@@ -1,4 +1,6 @@
 #!/bin/sh
+# shellcheck disable=SC2086
+# bashsupport disable=LongLine
 
 #
 # sudoers.d update
@@ -26,6 +28,7 @@ test -x "${SUDOC}" || { SUDOC=''; flag=''; mkdir -p /etc/sudoers.d; }
 
 if [ ! "${PASSWORD-}" ]; then
   if [ -f "${file}" ]; then 
+    # shellcheck source=/etc/sudoers.sh
     . "${file}"
   elif [ "${SUDOC-}" ]; then
     printf '%s' "Enter admin password: " >&2
