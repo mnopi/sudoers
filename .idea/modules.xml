@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../backup/.idea/backup.iml" filepath="$PROJECT_DIR$/../backup/.idea/backup.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../binpm/.idea/binpm.iml" filepath="$PROJECT_DIR$/../binpm/.idea/binpm.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/sudoers.iml" filepath="$PROJECT_DIR$/.idea/sudoers.iml" />
     </modules>
   </component>

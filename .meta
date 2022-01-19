@@ -1,3 +1,0 @@
-# shellcheck shell=sh
-dev_only=1
-deps="asciidoctor git j5pu/git"
