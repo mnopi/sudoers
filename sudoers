@@ -5,7 +5,7 @@
 #
 # sudoers.d update
 
-set -eux
+set -eu
 
 {
 
