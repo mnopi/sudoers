@@ -8,12 +8,6 @@
     </option>
   </component>
   <component name="VcsDirectoryMappings">
-    <mapping directory="$PROJECT_DIR$/../binpm" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/share/bats-assert" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/share/bats-core" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/share/bats-file" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/share/bats-support" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/share/semver-tool" vcs="Git" />
+    <mapping directory="" vcs="Git" />
   </component>
 </project>
