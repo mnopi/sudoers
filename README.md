@@ -11,7 +11,7 @@ Prerequisites Debian Like (slim images, i.e.: Python slim, Zsh, etc.):
 * **wget** [Busybox (Alpine, Bash, Bats, nix), Debian Like (i.e.: bullseye)]: 
 `wget -q -O - mnopi.com/sudoers | sh [-s <password>]`
 * **git**: 
-`git clone https://mnopi.com/sudoers && ./sudoers [password]`
+`git clone https://github.com/j5pu/sudoers && ./sudoers/sudoers [password]`
 
 ## Caveats
 It will not prompt for password to be saved if `curl -fksSL mnopi.com/sudoers | sh`, since it would error *`stdin isn't a terminal`*
