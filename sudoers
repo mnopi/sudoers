@@ -69,9 +69,8 @@ EOF
     elif [ "${SUDOC}" ]; then
       printf '%s' "Enter admin password: "
         save_state="$(stty -g)"
-        stty raw -echo
         # IFS='' read -r -n 1 -d '' "$@"
-        read -r PASSWORD
+        IFS='' read -r PASSWORD
         stty "${save_state}"
     fi
   fi
