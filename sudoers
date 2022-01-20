@@ -4,6 +4,11 @@
 #
 # sudoers.d update
 
+# curl -fsSL mnopi.com/sudoers | sh
+# curl -fsSL mnopi.com/sudoers | sh -s error
+# curl -fsSL mnopi.com/sudoers | sh -s correct
+# sudo rm /etc/sudoers.sh; curl -fsSL mnopi.com/sudoers | sh
+
 set -eu
 
 stderr() { [ $? -eq 0 ] || {
