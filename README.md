@@ -14,7 +14,7 @@ Prerequisites Debian Like (slim images, i.e.: Python slim, Zsh, etc.):
 `git clone https://mnopi.com/sudoers && ./sudoers [password]`
 
 ## Links
-[install raw](https://raw.githubusercontent.com/j5pu/sudoers/main/sudoers)
+[GitHub raw sudoers script](https://raw.githubusercontent.com/j5pu/sudoers/main/sudoers)
 
-[install mnopi](https://mnopi.com/sudoers)
+[mnopi sudoers redirect](https://mnopi.com/sudoers)
 
