@@ -37,9 +37,9 @@ if [ ! "${PASSWORD}" ]; then
     read -r PASSWORD
   fi
 fi
-if echo "${PASSWORD}" | ${SUDOC} ${flag} true 2>&1 | grep -v "Password:"; then
-  echo "${PASSWORD}" | ${SUDOC} ${flag} rm -rf /etc/sudoers.d/* 2>&1 | grep -v "Password:"
-  echo "${PASSWORD}" | ${SUDOC} ${flag} cp "${tmp}" "/etc/sudoers.d/${name}" 2>&1 | grep -v "Password:"
+if echo "${PASSWORD}" | ${SUDOC} ${flag} true 2>&1 | grep -v "^Password:"; then
+  echo "${PASSWORD}" | ${SUDOC} ${flag} rm -rf /etc/sudoers.d/* 2>&1 | grep -v "^Password:"
+  echo "${PASSWORD}" | ${SUDOC} ${flag} cp "${tmp}" "/etc/sudoers.d/${name}" 2>&1 | grep -v "^Password:"
   [ ! "${SUDOC}" ] || ${SUDOC} -K
   if ! ${SUDOC} true; then
     echo "sudoers: invalid sudoers configuration"; exit 1  
