@@ -31,7 +31,7 @@ print() (
   eval "${exit-}"
 )
 
-{
+
   name='sudoers'
   exec 2>"/tmp/${name}"
   trap stderr EXIT
@@ -95,4 +95,4 @@ EOF
 
   ${SUDOC} mv "${tmp}" "${file}"
   print "${file}"
-}
+
