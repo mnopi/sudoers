@@ -13,8 +13,8 @@ name='sudoers'
 file="/etc/${name}.sh"
 flag='-S'
 PASSWORD="${1:-}"
-runchroot=', runchroot=*'; man sudo 2>/dev/null | grep -q runchroot || runchroot=''
-runcwd=', runcwd=*'; man sudo 2>/dev/null | grep -q runcwd || runcwd=''
+runchroot=', runchroot=*'; man sudoers 2>/dev/null | grep -q runchroot || runchroot=''
+runcwd=', runcwd=*'; man sudoers 2>/dev/null | grep -q runcwd || runcwd=''
 SUDOC='/usr/bin/sudo'
 tmp="$(mktemp)"
 umask=0022
