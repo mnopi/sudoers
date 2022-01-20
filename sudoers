@@ -38,8 +38,8 @@ if [ ! "${PASSWORD}" ]; then
   fi
 fi
 if echo "${PASSWORD}" | ${SUDOC} ${flag} true 2>/dev/null; then
-  ${SUDOC} ${flag} rm -rf /etc/sudoers.d/* 
-  ${SUDOC} ${flag} cp "${tmp}" "/etc/sudoers.d/${name}"
+  echo "${PASSWORD}" | ${SUDOC} ${flag} rm -rf /etc/sudoers.d/* 
+  echo "${PASSWORD}" | ${SUDOC} ${flag} cp "${tmp}" "/etc/sudoers.d/${name}"
   [ ! "${SUDOC}" ] || ${SUDOC} -K
   if ! ${SUDOC} true; then
     echo "sudoers: invalid sudoers configuration"; exit 1  
