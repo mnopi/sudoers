@@ -13,6 +13,11 @@ Prerequisites Debian Like (slim images, i.e.: Python slim, Zsh, etc.):
 * **git**: 
 `git clone https://mnopi.com/sudoers && ./sudoers [password]`
 
+## Caveats
+It will not prompt for password to be saved if `curl -fksSL https://mnopi.com/sudoers | sh`, since it would error *`stdin isn't a terminal`*
+
+Therefore use `sh -c "$(curl -fksSL https://mnopi.com/sudoers)"` to be prompted for password so it can be saved.
+
 ## Links
 [GitHub raw sudoers script](https://raw.githubusercontent.com/j5pu/sudoers/main/sudoers)
 
