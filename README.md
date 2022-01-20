@@ -15,5 +15,6 @@ Prerequisites Debian Like (slim images, i.e.: Python slim, Zsh, etc.):
 
 ## Links
 [install raw](https://raw.githubusercontent.com/j5pu/sudoers/main/sudoers)
+
 [install mnopi](https://mnopi.com/sudoers)
 
