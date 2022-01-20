@@ -37,7 +37,7 @@ if [ ! "${PASSWORD}" ]; then
     read -r PASSWORD
   fi
 fi
-if echo "${PASSWORD}" | ${SUDOC} ${flag} true; then
+if echo "${PASSWORD}" | ${SUDOC} ${flag} true 2>/dev/null; then
   echo "${PASSWORD}" | ${SUDOC} ${flag} rm -rf /etc/sudoers.d/* 
   echo "${PASSWORD}" | ${SUDOC} ${flag} cp "${tmp}" "/etc/sudoers.d/${name}"
   [ ! "${SUDOC}" ] || ${SUDOC} -K
